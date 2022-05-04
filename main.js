@@ -33,8 +33,8 @@ const playlist = $('.playlist')
         {
             name :'Maps',
             singer: 'Maroon 5',
-            path:'../assets/music/song2.mp3',
-            image:'../assets/img/song2.jpg'
+            path:'./assets/music/song2.mp3',
+            image:'./assets/img/song2.jpg'
         },
         {
             name :'Orb Sak Snea',
