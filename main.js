@@ -4,18 +4,23 @@ const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
 const player = $('.player')
+const dashboard = $('.dashboard')
 const cd = $('.cd')
 const heading = $('header h2')
 const cdThumb = $('.cd-thumb')
 const audio = $('#audio')
 const playBtn = $('.btn-toggle-play')
 const progress = $('#progress')
+const durationTime = $(".circle");
+const remainingTime = $(".percent");
 const nextBtn = $('.btn-next')
 const prevBtn = $('.btn-prev')
 const randomBtn = $('.btn-random')
 const repeatBtn = $('.btn-repeat')
 const song = $('.song')
 const playlist = $('.playlist')
+
+const time = dashboard.duration
 
 
  const app = {
@@ -144,9 +149,27 @@ const playlist = $('.playlist')
             if (audio.duration) {
                 const progressPercent = Math.floor(audio.currentTime / audio.duration * 100)
                 progress.value = progressPercent
+                
+                // time bài hát
+                remainingTime.textContent = formatTimer(audio.duration);
+                if (!audio.duration) {
+                    durationTime.textContent = "00:00";
+                } else {
+                    durationTime.textContent = formatTimer(audio.currentTime);
+                }
+                
+                function formatTimer(number) {
+                    const minutes = Math.floor(number / 60);
+                    const seconds = Math.floor(number - minutes * 60);
+                    return `${minutes < 10 ? "0" + minutes : minutes}:${
+                        seconds < 10 ? "0" + seconds : seconds
+                    }`;
+                }
             }
-            
         }
+
+        // time bài hát 
+           
 
         // tua bài hát
         progress.onchange = function(e) {
@@ -217,6 +240,14 @@ const playlist = $('.playlist')
         audio.src = this.currentSong.path
 
     },
+    // currentTime: function() {
+    //     currentTime = currentSong.audio.currentTime
+
+
+    //     this.loadCurrentSong()
+
+    // },
+
     nextSong: function() {
         this.currentIndex++
         if (this.currentIndex >= this.songs.length) {
